@@ -6,52 +6,48 @@ from pollard import pollard
 
 def main():
     
-    n = int(input("Enter n (as part of the public key): "))
-    e = int(input("Enter e (as part of the public key): "))
-    c = int(input("Enter c (the encrypted message to decrypt): "))
-    b = int(input("Enter b (the maximum prime factor in n, optional): ") or 1)
+    n = int(input("Nhập n ( một phần của khóa công khai): "))
+    e = int(input("Nhập e ( một phần của khóa công khai): "))
+    #c = int(input("Nhập c (thông điệp đã được mã hóa để giải mã): "))
+    b = int(input("Nhập b (số nguyên tố tối đa trong n, tùy chọn): ") or 1)
+    
+ 
 
-    # Demo:
-    # n = 186444745729857899758373984272541398503249351266417000699738642133172271283265124803102459
-    # e = 65537
-    # c = 159178142916077677757648147687519523540045276157456113470673097514775229976995968698190914
-    # b = 200000
-
-    if n < 2 or e < 2 or c < 0 or b > n or b <= 0:
-        print("Invalid input")
+    if n < 2 or e < 2  or b > n or b <= 0:
+        print("Đầu vào không hợp lệ")
         return
         
     p = None
 
     if b == 1:
-        print("Factorizing n with the Bruteforce algorithm...")
+        print("Đang phân tích n bằng thuật toán pollard......")
         p = find_factor(n)
     else:
-        print("Factorizing n with the Pollard algorithm...")
+        print("Đang phân tích n bằng thuật toán Pollard...")
         if b > n - 1:
             b = n - 1
         p = pollard(b, n)
-
+    print("Phân tích hoàn tất.")
     print("p = %d" % p)
 
     q = n // p
 
     print("q = %d" % q)
-    print("Factorizing complete.")
+    
 
     phi = (p - 1) * (q - 1) if p != q else p * p - p
 
     print("phi(n) = %d" % phi)
 
-    print("Solving e * d = 1 mod phi(n) with the euklidian algorithm...")
+    print("Giải phương trình e * d = 1 mod phi(n) bằng thuật toán Euclid...")
 
     d = inverse_modulo(e, phi)
 
-    print("d (private key) = %d" % d)
+    print("d (khóa bí mật) = %d" % d)
 
-    m = power_modulo(c, d, n)
+    #m = power_modulo(c, d, n)
 
-    print("m (decrypted message) = %d" % m)
+    #print("m (thông điệp giải mã) = %d" % m)
 
 
 if __name__ == "__main__":

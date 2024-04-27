@@ -9,10 +9,10 @@ def gcd(a: int, b: int) -> int:
 
 
 def extended_gcd(a: int, b: int) -> (int, int, int):
-    if a == 0: # Optional check
+    if a == 0: # Kiểm tra tùy chọn
         return b, 0, 1
 
-    if b == 0: # Without this check the first iteration will divide by zero
+    if b == 0: # Nếu không kiểm tra này, vòng lặp đầu tiên sẽ chia cho không
         return a, 1, 0
 
     un_prev = 1
@@ -29,11 +29,11 @@ def extended_gcd(a: int, b: int) -> (int, int, int):
         if b == 0:
             return a, un_cur, vn_cur
 
-        # Update coefficients
+        # Cập nhật hệ số
         un_new = un_prev - qn * un_cur
         vn_new = vn_prev - qn * vn_cur
 
-        # Shift coefficients
+        # Dịch các hệ số
         un_prev = un_cur
         vn_prev = vn_cur
         un_cur = un_new
