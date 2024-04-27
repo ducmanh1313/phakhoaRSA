@@ -27,7 +27,7 @@ def pollard(b: int, n: int) -> int:
 
     k = compute_k(b)
 
-    sys.set_int_max_str_digits(10000)  # Tăng giới hạn cho phép chuyển đổi số nguyên sang chuỗi
+    sys.set_int_max_str_digits(10000)
 
     print("k có %d chữ số" % len(str(k)))
 
